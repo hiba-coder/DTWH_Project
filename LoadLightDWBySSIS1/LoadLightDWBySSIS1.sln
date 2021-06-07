@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "LoadLightDWBySSIS1", "LoadLightDWBySSIS1\LoadLightDWBySSIS1.dtproj", "{9B9C2F49-2728-4269-AD8C-943C2486B9F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B9C2F49-2728-4269-AD8C-943C2486B9F4}.Development|Default.ActiveCfg = Development
+		{9B9C2F49-2728-4269-AD8C-943C2486B9F4}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0510E515-0998-46FD-A1A0-4E5384F263F0}
+	EndGlobalSection
+EndGlobal

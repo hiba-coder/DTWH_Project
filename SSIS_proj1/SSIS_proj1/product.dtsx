@@ -1,0 +1,2560 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/21/2021 3:45:21 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-A0JS791"
+  DTS:CreatorName="DESKTOP-A0JS791\Lenovo"
+  DTS:DTSID="{CE7B15F6-5F66-4687-90BD-F947A99859A9}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.157"
+  DTS:LocaleID="1036"
+  DTS:ObjectName="product"
+  DTS:PackageType="5"
+  DTS:VersionBuild="9"
+  DTS:VersionGUID="{46A27C97-77DE-422B-A6E4-AD696E67DA8F}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Historisation des lignes inactifs de la dimension produit"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tâche de flux de données"
+      DTS:DTSID="{9B087E48-3254-4E3E-977B-67DEA96B442C}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Historisation des lignes inactifs de la dimension produit"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Historisation des lignes inactifs de la dimension produit\Commande OLE DB"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="Commande OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;2"
+              description="Exécute une instruction SQL pour chaque ligne d'un flux de données. Par exemple, appelez une procédure stockée 'nouvelle configuration d'employé' pour chaque ligne de la table 'nouveaux employés'. Remarque : l'exécution d'une instruction SQL pour chaque ligne d'un flux de données volumineux peut prendre beaucoup de temps."
+              name="Commande OLE DB"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">Update	dbo.produit	SET	isCurrent	=	0,	date_update	=	Getdate()	where	idproduit	=	?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Historisation des lignes inactifs de la dimension produit\Commande OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="{6491E4CC-4E35-471F-B139-A948317EC7AD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.VENTE_DATAWAREHOUSE]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Historisation des lignes inactifs de la dimension produit\Commande OLE DB.Inputs[Entrée de commande OLE DB]"
+                  errorOrTruncationOperation="Exécution de commande"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrée de commande OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[idproduit]"
+                      cachedDataType="i4"
+                      cachedName="idproduit"
+                      externalMetadataColumnId="Package\Historisation des lignes inactifs de la dimension produit\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_0]"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idproduit]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_0]"
+                      dataType="i4"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Historisation des lignes inactifs de la dimension produit\Commande OLE DB.Outputs[Sortie de commande OLE DB]"
+                  exclusionGroup="1"
+                  name="Sortie de commande OLE DB"
+                  synchronousInputId="Package\Historisation des lignes inactifs de la dimension produit\Commande OLE DB.Inputs[Entrée de commande OLE DB]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Historisation des lignes inactifs de la dimension produit\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de commande OLE DB"
+                  synchronousInputId="Package\Historisation des lignes inactifs de la dimension produit\Commande OLE DB.Inputs[Entrée de commande OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Historisation des lignes inactifs de la dimension produit\Recherche"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Recherche;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;6"
+              description="Joint des colonnes supplémentaires au flux de données en recherchant des valeurs dans une table. Par exemple, joignez la colonne 'id employé' à la table des employés afin d'obtenir la 'date d'embauche' et le 'nom de l'employé'. Nous recommandons cette transformation lorsque la table de recherche peut être stockée en mémoire."
+              name="Recherche"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SQL qui génère la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[PRODUIT]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[PRODUIT]) [refTable]
+where [refTable].[idproduit] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de cache de la table de correspondance."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie comment la transformation de recherche gère les lignes sans entrées correspondantes dans le jeu de données de référence."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le pourcentage du cache alloué aux lignes sans entrées correspondantes dans le dataset de référence."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indique si les métadonnées sont à référencer en format XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="idproduit" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="idcategorie" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="libelle_produit" dataType="DT_WSTR" length="45" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Qte_stock" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="prix_unitaire" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Spécifie la liste d'identificateurs de traçabilité se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
+                  name="ParameterMap">#{Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idproduit]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Détermine si les clés dupliquées dans les données de référence doivent être traitées en tant qu'erreurs lorsque le mode Cache complet est utilisé."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Connections[OleDbConnection]"
+                  connectionManagerID="{8E09D0A4-9B7F-477A-AE6F-B3F570E563BC}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.VENTE_TRANSACTIONNELLE]"
+                  description="Gestionnaire de connexions utilisé pour accéder aux données de correspondance."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Inputs[Entrée de recherche]"
+                  name="Entrée de recherche">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Inputs[Entrée de recherche].Columns[idproduit]"
+                      cachedDataType="i4"
+                      cachedName="idproduit"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idproduit]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">idproduit</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Outputs[Sortie de recherche avec correspondance]"
+                  errorOrTruncationOperation="Recherche"
+                  exclusionGroup="1"
+                  name="Sortie de recherche avec correspondance"
+                  synchronousInputId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Outputs[Sortie de recherche avec correspondance].Columns[idproduit]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copie de colonnes"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Outputs[Sortie de recherche avec correspondance].Columns[idproduit]"
+                      name="idproduit"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn">idproduit</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Outputs[Sortie de recherche avec correspondance].Columns[idcategorie]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copie de colonnes"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Outputs[Sortie de recherche avec correspondance].Columns[idcategorie]"
+                      name="idcategorie"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn">idcategorie</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Outputs[Sortie de recherche avec correspondance].Columns[libelle_produit]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copie de colonnes"
+                      length="45"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Outputs[Sortie de recherche avec correspondance].Columns[libelle_produit]"
+                      name="libelle_produit"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn">libelle_produit</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Outputs[Sortie de recherche avec correspondance].Columns[Qte_stock]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copie de colonnes"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Outputs[Sortie de recherche avec correspondance].Columns[Qte_stock]"
+                      name="Qte_stock"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn">Qte_stock</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Outputs[Sortie de recherche avec correspondance].Columns[prix_unitaire]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copie de colonnes"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Outputs[Sortie de recherche avec correspondance].Columns[prix_unitaire]"
+                      name="prix_unitaire"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn">prix_unitaire</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Outputs[Sortie de recherche sans correspondance]"
+                  description="Sortie de recherche gérant les lignes sans entrées correspondantes dans le dataset de référence. Utilisez cette sortie lorsque la propriété NoMatchBehavior a la valeur « Envoyez les lignes sans entrées correspondantes dans la sortie sans correspondance »."
+                  exclusionGroup="1"
+                  name="Sortie de recherche sans correspondance"
+                  synchronousInputId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Outputs[Sortie d'erreur de recherche]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de recherche"
+                  synchronousInputId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Source OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;7"
+              description="Source OLE DB"
+              name="Source OLE DB"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT idproduit, idcategorie, libelle_produit, Qte_stock,	prix_unitaire FROM dbo.PRODUIT where isCurrent = 1</property>
+                <property
+                  dataType="System.String"
+                  description="Variable contenant la commande SQL à exécuter."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Mappages entre les paramètres de la commande SQL et les variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="{6491E4CC-4E35-471F-B139-A948317EC7AD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.VENTE_DATAWAREHOUSE]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB]"
+                  name="Sortie de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idproduit]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[idproduit]"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idproduit]"
+                      name="idproduit"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idcategorie]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[idcategorie]"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idcategorie]"
+                      name="idcategorie"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[libelle_produit]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[libelle_produit]"
+                      length="45"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[libelle_produit]"
+                      name="libelle_produit"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Qte_stock]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Qte_stock]"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Qte_stock]"
+                      name="Qte_stock"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[prix_unitaire]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[prix_unitaire]"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[prix_unitaire]"
+                      name="prix_unitaire"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[idproduit]"
+                      dataType="i4"
+                      name="idproduit" />
+                    <externalMetadataColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[idcategorie]"
+                      dataType="i4"
+                      name="idcategorie" />
+                    <externalMetadataColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[libelle_produit]"
+                      dataType="wstr"
+                      length="45"
+                      name="libelle_produit" />
+                    <externalMetadataColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Qte_stock]"
+                      dataType="i4"
+                      name="Qte_stock" />
+                    <externalMetadataColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[prix_unitaire]"
+                      dataType="i4"
+                      name="prix_unitaire" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB]"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[idproduit]"
+                      dataType="i4"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[idproduit]"
+                      name="idproduit" />
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[idcategorie]"
+                      dataType="i4"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[idcategorie]"
+                      name="idcategorie" />
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[libelle_produit]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[libelle_produit]"
+                      name="libelle_produit" />
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Qte_stock]"
+                      dataType="i4"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Qte_stock]"
+                      name="Qte_stock" />
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[prix_unitaire]"
+                      dataType="i4"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[prix_unitaire]"
+                      name="prix_unitaire" />
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Historisation des lignes inactifs de la dimension produit.Paths[Sortie de recherche sans correspondance]"
+              endId="Package\Historisation des lignes inactifs de la dimension produit\Commande OLE DB.Inputs[Entrée de commande OLE DB]"
+              name="Sortie de recherche sans correspondance"
+              startId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Outputs[Sortie de recherche sans correspondance]" />
+            <path
+              refId="Package\Historisation des lignes inactifs de la dimension produit.Paths[Sortie de source OLE DB]"
+              endId="Package\Historisation des lignes inactifs de la dimension produit\Recherche.Inputs[Entrée de recherche]"
+              name="Sortie de source OLE DB"
+              startId="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB.Outputs[Sortie de source OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Insertion et Mise à jour des lignes de la dimension"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tâche de flux de données"
+      DTS:DTSID="{1F72F3FC-4871-49AE-B7B1-94F9D62D69BC}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Insertion et Mise à jour des lignes de la dimension"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Colonne dérivée;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;0"
+              description="Crée de nouvelles valeurs de colonne en appliquant des expressions aux colonnes d'entrée de transformation. Créez de nouvelles colonnes ou remplacez celles qui existent déjà. Par exemple, concaténez les valeurs de la colonne 'prénom' et de la colonne 'nom' pour créer une colonne 'nom complet'."
+              name="Colonne dérivée"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Inputs[Entrée de colonne dérivée]"
+                  description="Entrée de la transformation de colonnes dérivées"
+                  name="Entrée de colonne dérivée">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Inputs[Entrée de colonne dérivée].Columns[idproduit]"
+                      cachedDataType="i4"
+                      cachedName="idproduit"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idproduit]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Outputs[Sortie de colonne dérivée]"
+                  description="Sortie par défaut de la transformation de colonnes dérivées"
+                  exclusionGroup="1"
+                  name="Sortie de colonne dérivée"
+                  synchronousInputId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Inputs[Entrée de colonne dérivée]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[IsCurrent]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[IsCurrent]"
+                      name="IsCurrent"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">1</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">1</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Type_produit]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      length="7"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Type_produit]"
+                      name="Type_produit"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">#{Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idproduit]} &gt; 200000 ? "Pack" : "Service"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">idproduit &gt; 200000 ? "Pack" : "Service"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Date_Insert]"
+                      dataType="date"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Date_Insert]"
+                      name="Date_Insert"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">@[System::StartTime]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[System::StartTime]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Package_Insert]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      length="7"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Package_Insert]"
+                      name="Package_Insert"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">@[System::PackageName]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[System::PackageName]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée]"
+                  description="Sortie d'erreur de la transformation de colonnes dérivées"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de colonne dérivée"
+                  synchronousInputId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Inputs[Entrée de colonne dérivée]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Colonne dérivée;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;0"
+              description="Crée de nouvelles valeurs de colonne en appliquant des expressions aux colonnes d'entrée de transformation. Créez de nouvelles colonnes ou remplacez celles qui existent déjà. Par exemple, concaténez les valeurs de la colonne 'prénom' et de la colonne 'nom' pour créer une colonne 'nom complet'."
+              name="Colonne dérivée 1"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Inputs[Entrée de colonne dérivée]"
+                  description="Entrée de la transformation de colonnes dérivées"
+                  name="Entrée de colonne dérivée">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Inputs[Entrée de colonne dérivée].Columns[idproduit]"
+                      cachedDataType="i4"
+                      cachedName="idproduit"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[idproduit]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie de colonne dérivée]"
+                  description="Sortie par défaut de la transformation de colonnes dérivées"
+                  exclusionGroup="1"
+                  name="Sortie de colonne dérivée"
+                  synchronousInputId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Inputs[Entrée de colonne dérivée]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[IsCurrent]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[IsCurrent]"
+                      name="IsCurrent"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">1</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">1</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Type_produit]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      length="7"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Type_produit]"
+                      name="Type_produit"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">#{Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[idproduit]} &gt; 200000 ? "Pack" : "Service"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">idproduit &gt; 200000 ? "Pack" : "Service"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Date_Insert]"
+                      dataType="date"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Date_Insert]"
+                      name="Date_Insert"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">@[System::StartTime]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[System::StartTime]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Package_Insert]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      length="7"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Package_Insert]"
+                      name="Package_Insert"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">@[System::PackageName]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[System::PackageName]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée]"
+                  description="Sortie d'erreur de la transformation de colonnes dérivées"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de colonne dérivée"
+                  synchronousInputId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Inputs[Entrée de colonne dérivée]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="Commande OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;2"
+              description="Exécute une instruction SQL pour chaque ligne d'un flux de données. Par exemple, appelez une procédure stockée 'nouvelle configuration d'employé' pour chaque ligne de la table 'nouveaux employés'. Remarque : l'exécution d'une instruction SQL pour chaque ligne d'un flux de données volumineux peut prendre beaucoup de temps."
+              name="Commande OLE DB"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE	[dbo].[PRODUIT]	SET	[idcategorie]	=	?,[libelle_produit]	=	?,[prix_unitaire]	=	
+?,[Qte_stock]	=	?,date_update	=	Getdate() WHERE	[idproduit]	=	? AND	date_update IS	NULL</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="{6491E4CC-4E35-471F-B139-A948317EC7AD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.VENTE_DATAWAREHOUSE]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB]"
+                  errorOrTruncationOperation="Exécution de commande"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrée de commande OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[IsCurrent]"
+                      cachedDataType="i4"
+                      cachedName="IsCurrent"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_0]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[IsCurrent]" />
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[idproduit]"
+                      cachedDataType="i4"
+                      cachedName="idproduit"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_4]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idproduit]" />
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[idcategorie]"
+                      cachedDataType="i4"
+                      cachedName="idcategorie"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_3]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idcategorie]" />
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[libelle_produit]"
+                      cachedDataType="wstr"
+                      cachedLength="45"
+                      cachedName="libelle_produit"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_1]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[libelle_produit]" />
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Qte_stock]"
+                      cachedDataType="i4"
+                      cachedName="Qte_stock"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_2]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Qte_stock]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_0]"
+                      dataType="i4"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_1]"
+                      dataType="wstr"
+                      length="45"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_2]"
+                      dataType="i4"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_3]"
+                      dataType="i4"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_4]"
+                      dataType="i4"
+                      name="Param_4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Outputs[Sortie de commande OLE DB]"
+                  exclusionGroup="1"
+                  name="Sortie de commande OLE DB"
+                  synchronousInputId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de commande OLE DB"
+                  synchronousInputId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="Commande OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;2"
+              description="Exécute une instruction SQL pour chaque ligne d'un flux de données. Par exemple, appelez une procédure stockée 'nouvelle configuration d'employé' pour chaque ligne de la table 'nouveaux employés'. Remarque : l'exécution d'une instruction SQL pour chaque ligne d'un flux de données volumineux peut prendre beaucoup de temps."
+              name="Commande OLE DB 1"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE [dbo].[PRODUIT] SET [idcategorie] = ?,[libelle_produit] = ?,[Qte_stock] = ? WHERE [idproduit] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Connections[OleDbConnection]"
+                  connectionManagerID="{6491E4CC-4E35-471F-B139-A948317EC7AD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.VENTE_DATAWAREHOUSE]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Inputs[Entrée de commande OLE DB]"
+                  errorOrTruncationOperation="Exécution de commande"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrée de commande OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[libelle_produit]"
+                      cachedDataType="wstr"
+                      cachedLength="45"
+                      cachedName="libelle_produit"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_1]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[libelle_produit]" />
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[Qte_stock]"
+                      cachedDataType="i4"
+                      cachedName="Qte_stock"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_2]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Qte_stock]" />
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[idcategorie]"
+                      cachedDataType="i4"
+                      cachedName="idcategorie"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_3]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idcategorie]" />
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[idproduit]"
+                      cachedDataType="i4"
+                      cachedName="idproduit"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_0]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idproduit]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_0]"
+                      dataType="i4"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_1]"
+                      dataType="wstr"
+                      length="45"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_2]"
+                      dataType="i4"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_3]"
+                      dataType="i4"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Outputs[Sortie de commande OLE DB]"
+                  exclusionGroup="1"
+                  name="Sortie de commande OLE DB"
+                  synchronousInputId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Inputs[Entrée de commande OLE DB]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Outputs[Sortie d'erreur de commande OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de commande OLE DB"
+                  synchronousInputId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Inputs[Entrée de commande OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destination OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;4"
+              description="Destination OLE DB"
+              name="Destination d'insertion"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[dbo].[PRODUIT]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les valeurs fournies pour les colonnes d'identité seront copiées à la destination. Si la valeur est définie à False, les valeurs des colonnes d'identité seront générées automatiquement à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les colonnes contenant la valeur NULL auront cette valeur NULL copiée à la destination. Si la valeur est définie à False, les colonnes contenant la valeur NULL auront leurs valeurs par défaut insérées à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie les options à utiliser avec le chargement rapide.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie quand les validations sont émises pendant l'insertion des données.  Une valeur égale à 0 spécifie qu'une validation sera émise à la fin de l'insertion des données.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Connections[OleDbConnection]"
+                  connectionManagerID="{6491E4CC-4E35-471F-B139-A948317EC7AD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.VENTE_DATAWAREHOUSE]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB]"
+                  errorOrTruncationOperation="Insérer"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrée de destination OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].Columns[idproduit]"
+                      cachedDataType="i4"
+                      cachedName="idproduit"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[idproduit]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[idproduit]" />
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].Columns[idcategorie]"
+                      cachedDataType="i4"
+                      cachedName="idcategorie"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[idcategorie]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[idcategorie]" />
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].Columns[libelle_produit]"
+                      cachedDataType="wstr"
+                      cachedLength="45"
+                      cachedName="libelle_produit"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[libelle_produit]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[libelle_produit]" />
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].Columns[Qte_stock]"
+                      cachedDataType="i4"
+                      cachedName="Qte_stock"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Qte_stock]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[Qte_stock]" />
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].Columns[prix_unitaire]"
+                      cachedDataType="i4"
+                      cachedName="prix_unitaire"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[prix_unitaire]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[prix_unitaire]" />
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].Columns[Type_produit]"
+                      cachedDataType="wstr"
+                      cachedLength="7"
+                      cachedName="Type_produit"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Type_produit]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Type_produit]" />
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].Columns[Date_Insert]"
+                      cachedDataType="date"
+                      cachedName="Date_Insert"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[date_insert]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Date_Insert]" />
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].Columns[IsCurrent]"
+                      cachedDataType="i4"
+                      cachedName="IsCurrent"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[IsCurrent]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[IsCurrent]" />
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].Columns[Package_Insert]"
+                      cachedDataType="wstr"
+                      cachedLength="7"
+                      cachedName="Package_Insert"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[package_insert]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Package_Insert]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Pk_produit]"
+                      dataType="i4"
+                      name="Pk_produit" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[idproduit]"
+                      dataType="i4"
+                      name="idproduit" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[idcategorie]"
+                      dataType="i4"
+                      name="idcategorie" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[libelle_produit]"
+                      dataType="wstr"
+                      length="45"
+                      name="libelle_produit" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Qte_stock]"
+                      dataType="i4"
+                      name="Qte_stock" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[prix_unitaire]"
+                      dataType="i4"
+                      name="prix_unitaire" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Type_produit]"
+                      dataType="wstr"
+                      length="45"
+                      name="Type_produit" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[IsCurrent]"
+                      dataType="i4"
+                      name="IsCurrent" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[date_insert]"
+                      dataType="dbTimeStamp"
+                      name="date_insert" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[date_update]"
+                      dataType="dbTimeStamp"
+                      name="date_update" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[package_insert]"
+                      dataType="wstr"
+                      length="50"
+                      name="package_insert" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Outputs[Sortie d'erreur de destination OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de destination OLE DB"
+                  synchronousInputId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente"
+              componentClassID="Microsoft.SCD"
+              contactInfo="Dimension à variation lente;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;3"
+              description="Met à jour une dimension d'entrepôt de données (Data Warehouse) SQL Server Analysis Services. Mettez à jour les enregistrements de dimension qui sont déjà présents et insérez ceux qui ne le sont pas. Par exemple, mettez à jour la table DimProduct de la base de données OLAP AdventureWorksDW avec les données de la table Products dans la base de données OLTP AdventureWorks."
+              name="Dimension à variation lente"
+              version="3">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SELECT utilisée pour créer un ensemble de lignes du schéma."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [idcategorie], [idproduit], [libelle_produit], [prix_unitaire], [Qte_stock],[date_insert],[date_update] FROM [dbo].[PRODUIT]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la clause WHERE dans l'instruction SELECT qui sélectionne la ligne actuelle parmi les lignes comportant des clés de travail identiques."
+                  name="CurrentRowWhere">[date_insert] IS NOT NULL AND [date_update] IS NULL</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les mises à jour d'attribut d'historique sont dirigées sur la sortie de la transformation pour les mises à jour d'attribut de validation."
+                  name="UpdateChangingAttributeHistory">true</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si la transformation échoue lorsque les colonnes comportant des attributs fixes contiennent des modifications."
+                  name="FailOnFixedAttributeChange">false</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de la colonne pour le membre déduit."
+                  name="InferredMemberIndicator"></property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les mises à jour de membre déduit sont détectées."
+                  name="EnableInferredMember">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si la transformation échoue lorsque la recherche d'un enregistrement existant échoue."
+                  name="FailOnLookupFailure">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie que toutes les lignes de l'entrée sont nouvelles ou que la transformation détecte le type de modification."
+                  name="IncomingRowChangeType"
+                  typeConverter="IncomingRowChangeType">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Connections[LookupConnection]"
+                  connectionManagerID="{6491E4CC-4E35-471F-B139-A948317EC7AD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.VENTE_DATAWAREHOUSE]"
+                  description="Définit la connexion à utiliser pour faire des recherches dans la table de dimension"
+                  name="LookupConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente]"
+                  name="Entrée de dimension à variation lente">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[idcategorie]"
+                      cachedDataType="i4"
+                      cachedName="idcategorie"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[idcategorie]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idcategorie]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[idproduit]"
+                      cachedDataType="i4"
+                      cachedName="idproduit"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[idproduit]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idproduit]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[libelle_produit]"
+                      cachedDataType="wstr"
+                      cachedLength="45"
+                      cachedName="libelle_produit"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[libelle_produit]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[libelle_produit]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[prix_unitaire]"
+                      cachedDataType="i4"
+                      cachedName="prix_unitaire"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[prix_unitaire]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[prix_unitaire]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">3</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[Qte_stock]"
+                      cachedDataType="i4"
+                      cachedName="Qte_stock"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Qte_stock]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Qte_stock]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[idcategorie]"
+                      dataType="i4"
+                      name="idcategorie" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[idproduit]"
+                      dataType="i4"
+                      name="idproduit" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[libelle_produit]"
+                      dataType="wstr"
+                      length="45"
+                      name="libelle_produit" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[prix_unitaire]"
+                      dataType="i4"
+                      name="prix_unitaire" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Qte_stock]"
+                      dataType="i4"
+                      name="Qte_stock" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[date_insert]"
+                      dataType="dbTimeStamp"
+                      name="date_insert" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[date_update]"
+                      dataType="dbTimeStamp"
+                      name="date_update" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Outputs[Sortie inchangée]"
+                  description="Lignes inchangées"
+                  exclusionGroup="1"
+                  name="Sortie inchangée"
+                  synchronousInputId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Outputs[Nouvelle sortie]"
+                  description="Nouvelles lignes"
+                  exclusionGroup="1"
+                  name="Nouvelle sortie"
+                  synchronousInputId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Outputs[Sortie d'attribut fixe]"
+                  description="Lignes comportant des modifications dans les colonnes marquées FixedAttribute"
+                  exclusionGroup="1"
+                  name="Sortie d'attribut fixe"
+                  synchronousInputId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Outputs[Sortie de mises à jour d'attribut de validation]"
+                  description="Ces lignes contiennent de nouvelles informations sur les modifications de colonnes ChangingAttribute (type 1)"
+                  exclusionGroup="1"
+                  name="Sortie de mises à jour d'attribut de validation"
+                  synchronousInputId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Outputs[Sortie d'insertions d'attribut d'historique]"
+                  description="Les modifications sur HistoricalAttribute (type 2) apparaissent dans ces nouvelles lignes"
+                  exclusionGroup="2"
+                  name="Sortie d'insertions d'attribut d'historique"
+                  synchronousInputId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Outputs[Sortie de mises à jour de membre déduit]"
+                  description="Information de mise à jour de ligne de dimension initiale non remplie"
+                  exclusionGroup="1"
+                  name="Sortie de mises à jour de membre déduit"
+                  synchronousInputId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Source OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;7"
+              description="Source OLE DB"
+              name="Source OLE DB"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[dbo].[PRODUIT]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable contenant la commande SQL à exécuter."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Mappages entre les paramètres de la commande SQL et les variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="{8E09D0A4-9B7F-477A-AE6F-B3F570E563BC}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.VENTE_TRANSACTIONNELLE]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB]"
+                  name="Sortie de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idproduit]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[idproduit]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idproduit]"
+                      name="idproduit"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idcategorie]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[idcategorie]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idcategorie]"
+                      name="idcategorie"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[libelle_produit]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[libelle_produit]"
+                      length="45"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[libelle_produit]"
+                      name="libelle_produit"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Qte_stock]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Qte_stock]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Qte_stock]"
+                      name="Qte_stock"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[prix_unitaire]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[prix_unitaire]"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[prix_unitaire]"
+                      name="prix_unitaire"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[idproduit]"
+                      dataType="i4"
+                      name="idproduit" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[idcategorie]"
+                      dataType="i4"
+                      name="idcategorie" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[libelle_produit]"
+                      dataType="wstr"
+                      length="45"
+                      name="libelle_produit" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Qte_stock]"
+                      dataType="i4"
+                      name="Qte_stock" />
+                    <externalMetadataColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[prix_unitaire]"
+                      dataType="i4"
+                      name="prix_unitaire" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB]"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[idproduit]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[idproduit]"
+                      name="idproduit" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[idcategorie]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[idcategorie]"
+                      name="idcategorie" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[libelle_produit]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[libelle_produit]"
+                      name="libelle_produit" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Qte_stock]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Qte_stock]"
+                      name="Qte_stock" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[prix_unitaire]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[prix_unitaire]"
+                      name="prix_unitaire" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout"
+              componentClassID="Microsoft.UnionAll"
+              contactInfo="Unir tout;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;1"
+              description="Combine des lignes de plusieurs flux de données sans effectuer de tri. Par exemple, rajoutez des lignes à un flux de données après correction des erreurs. Si le tri est important, nous recommandons l'utilisation de la transformation de fusion."
+              name="Unir tout"
+              version="1">
+              <inputs>
+                <input
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Inputs[Unir tout entrée 1]"
+                  name="Unir tout entrée 1">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Inputs[Unir tout entrée 1].Columns[idproduit]"
+                      cachedDataType="i4"
+                      cachedName="idproduit"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idproduit]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="ID de traçabilité de colonne de sortie"
+                          name="OutputColumnLineageID">#{Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[idproduit]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Inputs[Unir tout entrée 1].Columns[idcategorie]"
+                      cachedDataType="i4"
+                      cachedName="idcategorie"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idcategorie]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="ID de traçabilité de colonne de sortie"
+                          name="OutputColumnLineageID">#{Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[idcategorie]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Inputs[Unir tout entrée 1].Columns[libelle_produit]"
+                      cachedDataType="wstr"
+                      cachedLength="45"
+                      cachedName="libelle_produit"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[libelle_produit]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="ID de traçabilité de colonne de sortie"
+                          name="OutputColumnLineageID">#{Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[libelle_produit]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Inputs[Unir tout entrée 1].Columns[Qte_stock]"
+                      cachedDataType="i4"
+                      cachedName="Qte_stock"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Qte_stock]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="ID de traçabilité de colonne de sortie"
+                          name="OutputColumnLineageID">#{Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[Qte_stock]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Inputs[Unir tout entrée 1].Columns[prix_unitaire]"
+                      cachedDataType="i4"
+                      cachedName="prix_unitaire"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[prix_unitaire]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="ID de traçabilité de colonne de sortie"
+                          name="OutputColumnLineageID">#{Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[prix_unitaire]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Inputs[Entrée Union All 1]"
+                  hasSideEffects="true"
+                  name="Entrée Union All 1">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Inputs[Entrée Union All 1].Columns[idproduit]"
+                      cachedDataType="i4"
+                      cachedName="idproduit"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idproduit]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="ID de traçabilité de colonne de sortie"
+                          name="OutputColumnLineageID">#{Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[idproduit]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Inputs[Entrée Union All 1].Columns[idcategorie]"
+                      cachedDataType="i4"
+                      cachedName="idcategorie"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[idcategorie]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="ID de traçabilité de colonne de sortie"
+                          name="OutputColumnLineageID">#{Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[idcategorie]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Inputs[Entrée Union All 1].Columns[libelle_produit]"
+                      cachedDataType="wstr"
+                      cachedLength="45"
+                      cachedName="libelle_produit"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[libelle_produit]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="ID de traçabilité de colonne de sortie"
+                          name="OutputColumnLineageID">#{Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[libelle_produit]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Inputs[Entrée Union All 1].Columns[Qte_stock]"
+                      cachedDataType="i4"
+                      cachedName="Qte_stock"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Qte_stock]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="ID de traçabilité de colonne de sortie"
+                          name="OutputColumnLineageID">#{Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[Qte_stock]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Inputs[Entrée Union All 1].Columns[prix_unitaire]"
+                      cachedDataType="i4"
+                      cachedName="prix_unitaire"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[prix_unitaire]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="ID de traçabilité de colonne de sortie"
+                          name="OutputColumnLineageID">#{Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[prix_unitaire]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Inputs[Entrée Union All 2]"
+                  dangling="true"
+                  hasSideEffects="true"
+                  name="Entrée Union All 2">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1]"
+                  name="Unir tout sortie 1">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[idproduit]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[idproduit]"
+                      name="idproduit" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[idcategorie]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[idcategorie]"
+                      name="idcategorie" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[libelle_produit]"
+                      dataType="wstr"
+                      length="45"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[libelle_produit]"
+                      name="libelle_produit" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[Qte_stock]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[Qte_stock]"
+                      name="Qte_stock" />
+                    <outputColumn
+                      refId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[prix_unitaire]"
+                      dataType="i4"
+                      lineageId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1].Columns[prix_unitaire]"
+                      name="prix_unitaire" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Insertion et Mise à jour des lignes de la dimension.Paths[Nouvelle sortie]"
+              endId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Inputs[Unir tout entrée 1]"
+              name="Nouvelle sortie"
+              startId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Outputs[Nouvelle sortie]" />
+            <path
+              refId="Package\Insertion et Mise à jour des lignes de la dimension.Paths[Sortie d'insertions d'attribut d'historique]"
+              endId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Inputs[Entrée de colonne dérivée]"
+              name="Sortie d'insertions d'attribut d'historique"
+              startId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Outputs[Sortie d'insertions d'attribut d'historique]" />
+            <path
+              refId="Package\Insertion et Mise à jour des lignes de la dimension.Paths[Sortie de colonne dérivée]"
+              endId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Inputs[Entrée de commande OLE DB]"
+              name="Sortie de colonne dérivée"
+              startId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée.Outputs[Sortie de colonne dérivée]" />
+            <path
+              refId="Package\Insertion et Mise à jour des lignes de la dimension.Paths[Sortie de colonne dérivée1]"
+              endId="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion.Inputs[Entrée de destination OLE DB]"
+              name="Sortie de colonne dérivée"
+              startId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Outputs[Sortie de colonne dérivée]" />
+            <path
+              refId="Package\Insertion et Mise à jour des lignes de la dimension.Paths[Sortie de commande OLE DB]"
+              endId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Inputs[Entrée Union All 1]"
+              name="Sortie de commande OLE DB"
+              startId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB.Outputs[Sortie de commande OLE DB]" />
+            <path
+              refId="Package\Insertion et Mise à jour des lignes de la dimension.Paths[Sortie de mises à jour d'attribut de validation]"
+              endId="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1.Inputs[Entrée de commande OLE DB]"
+              name="Sortie de mises à jour d'attribut de validation"
+              startId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Outputs[Sortie de mises à jour d'attribut de validation]" />
+            <path
+              refId="Package\Insertion et Mise à jour des lignes de la dimension.Paths[Sortie de source OLE DB]"
+              endId="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente.Inputs[Entrée de dimension à variation lente]"
+              name="Sortie de source OLE DB"
+              startId="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB.Outputs[Sortie de source OLE DB]" />
+            <path
+              refId="Package\Insertion et Mise à jour des lignes de la dimension.Paths[Unir tout sortie 1]"
+              endId="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1.Inputs[Entrée de colonne dérivée]"
+              name="Unir tout sortie 1"
+              startId="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout.Outputs[Unir tout sortie 1]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Contrainte]"
+      DTS:CreationName=""
+      DTS:DTSID="{F725BE50-F913-4307-9D11-1D1A8B447CB5}"
+      DTS:From="Package\Insertion et Mise à jour des lignes de la dimension"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Contrainte"
+      DTS:To="Package\Historisation des lignes inactifs de la dimension produit" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Cette section CDATA contient des informations sur la disposition du package. Elle comprend des informations telles que les coordonnées (x,y), la largeur et la hauteur.-->
+<!--Si vous modifiez manuellement cette section et commettez une erreur, vous pouvez la supprimer. -->
+<!--Le package pourra toujours se charger normalement, mais les informations de disposition précédente seront perdues et le concepteur réorganisera automatiquement les éléments sur l'aire de conception.-->
+<Objects
+  Version="8">
+  <!--Chaque nœud ci-dessous contiendra des propriétés qui n'affectent pas le comportement d'exécution.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="338,42"
+          Id="Package\Historisation des lignes inactifs de la dimension produit"
+          TopLeft="159,247" />
+        <NodeLayout
+          Size="316,42"
+          Id="Package\Insertion et Mise à jour des lignes de la dimension"
+          TopLeft="177,140" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Contrainte]"
+          TopLeft="331.5,182">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,65"
+              Start="0,0"
+              End="0,57.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,57.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Historisation des lignes inactifs de la dimension produit">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="157,42"
+          Id="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB"
+          TopLeft="48,27" />
+        <NodeLayout
+          Size="132,42"
+          Id="Package\Historisation des lignes inactifs de la dimension produit\Recherche"
+          TopLeft="171,133" />
+        <EdgeLayout
+          Id="Package\Historisation des lignes inactifs de la dimension produit.Paths[Sortie de source OLE DB]"
+          TopLeft="126.5,69">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="110.5,64"
+              Start="0,0"
+              End="110.5,56.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,28"
+                    Point2="0,32"
+                    Point3="4,32" />
+                  <mssgle:LineSegment
+                    End="106.5,32" />
+                  <mssgle:CubicBezierSegment
+                    Point1="106.5,32"
+                    Point2="110.5,32"
+                    Point3="110.5,36" />
+                  <mssgle:LineSegment
+                    End="110.5,56.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="179,42"
+          Id="Package\Historisation des lignes inactifs de la dimension produit\Commande OLE DB"
+          TopLeft="220,226" />
+        <EdgeLayout
+          Id="Package\Historisation des lignes inactifs de la dimension produit.Paths[Sortie de recherche sans correspondance]"
+          TopLeft="237,175">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="72.5,51"
+              Start="0,0"
+              End="72.5,43.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.5"
+                    Point2="0,25.5"
+                    Point3="4,25.5" />
+                  <mssgle:LineSegment
+                    End="68.5,25.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="68.5,25.5"
+                    Point2="72.5,25.5"
+                    Point3="72.5,29.5" />
+                  <mssgle:LineSegment
+                    End="72.5,43.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.25201171875,30.5,183.0040234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Historisation des lignes inactifs de la dimension produit\Source OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Historisation des lignes inactifs de la dimension produit\Recherche">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[PRODUIT]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Insertion et Mise à jour des lignes de la dimension">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="179,42"
+          Id="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB"
+          TopLeft="5.50000000000006,311.5" />
+        <NodeLayout
+          Size="188,42"
+          Id="Package\Insertion et Mise à jour des lignes de la dimension\Commande OLE DB 1"
+          TopLeft="307,209.5" />
+        <NodeLayout
+          Size="121,42"
+          Id="Package\Insertion et Mise à jour des lignes de la dimension\Unir tout"
+          TopLeft="185.5,413.5" />
+        <NodeLayout
+          Size="187,42"
+          Id="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion"
+          TopLeft="152.5,617.5" />
+        <NodeLayout
+          Size="212,42"
+          Id="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente"
+          TopLeft="140,107.5" />
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée 1"
+          TopLeft="162,515.5" />
+        <NodeLayout
+          Size="159,42"
+          Id="Package\Insertion et Mise à jour des lignes de la dimension\Colonne dérivée"
+          TopLeft="25.5000000000001,209.5" />
+        <NodeLayout
+          Size="157,42"
+          Id="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB"
+          TopLeft="167.5,5.5" />
+        <EdgeLayout
+          Id="Package\Insertion et Mise à jour des lignes de la dimension.Paths[Sortie d'insertions d'attribut d'historique]"
+          TopLeft="195,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-90,60"
+              Start="0,0"
+              End="-90,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.4968944099379" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.4968944099379"
+                    Point2="0,20.4968944099379"
+                    Point3="-4,20.4968944099379" />
+                  <mssgle:LineSegment
+                    End="-86,20.4968944099379" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-86,20.4968944099379"
+                    Point2="-90,20.4968944099379"
+                    Point3="-90,24.4968944099379" />
+                  <mssgle:LineSegment
+                    End="-90,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-133.54201171875,25.4968944099379,177.0840234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Insertion et Mise à jour des lignes de la dimension.Paths[Nouvelle sortie]"
+          TopLeft="246,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="18.8333333333334,264"
+              Start="0,0"
+              End="18.8333333333334,256.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,152.332789559543" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,152.332789559543"
+                    Point2="0,156.332789559543"
+                    Point3="4,156.332789559543" />
+                  <mssgle:LineSegment
+                    End="14.8333333333334,156.332789559543" />
+                  <mssgle:CubicBezierSegment
+                    Point1="14.8333333333334,156.332789559543"
+                    Point2="18.8333333333334,156.332789559543"
+                    Point3="18.8333333333334,160.332789559543" />
+                  <mssgle:LineSegment
+                    End="18.8333333333334,256.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-23.7196809895833,161.332789559543,66.2726953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Insertion et Mise à jour des lignes de la dimension.Paths[Unir tout sortie 1]"
+          TopLeft="246,455.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Insertion et Mise à jour des lignes de la dimension.Paths[Sortie de source OLE DB]"
+          TopLeft="246,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Insertion et Mise à jour des lignes de la dimension.Paths[Sortie de mises à jour d'attribut de validation]"
+          TopLeft="297,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="104,60"
+              Start="0,0"
+              End="104,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.4968944099379" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.4968944099379"
+                    Point2="0,20.4968944099379"
+                    Point3="4,20.4968944099379" />
+                  <mssgle:LineSegment
+                    End="100,20.4968944099379" />
+                  <mssgle:CubicBezierSegment
+                    Point1="100,20.4968944099379"
+                    Point2="104,20.4968944099379"
+                    Point3="104,24.4968944099379" />
+                  <mssgle:LineSegment
+                    End="104,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-47.83259765625,25.4968944099379,199.6651953125,12.2490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Insertion et Mise à jour des lignes de la dimension.Paths[Sortie de commande OLE DB]"
+          TopLeft="95.0000000000001,353.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="132.166666666667,60"
+              Start="0,0"
+              End="132.166666666667,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.5301794453507" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,31.5301794453507"
+                    Point2="0,35.5301794453507"
+                    Point3="4,35.5301794453507" />
+                  <mssgle:LineSegment
+                    End="128.166666666667,35.5301794453507" />
+                  <mssgle:CubicBezierSegment
+                    Point1="128.166666666667,35.5301794453507"
+                    Point2="132.166666666667,35.5301794453507"
+                    Point3="132.166666666667,39.5301794453507" />
+                  <mssgle:LineSegment
+                    End="132.166666666667,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Insertion et Mise à jour des lignes de la dimension.Paths[Sortie de colonne dérivée1]"
+          TopLeft="246,557.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Insertion et Mise à jour des lignes de la dimension.Paths[Sortie de colonne dérivée]"
+          TopLeft="105,251.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-10,60"
+              Start="0,0"
+              End="-10,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26"
+                    Point2="0,30"
+                    Point3="-4,30" />
+                  <mssgle:LineSegment
+                    End="-6,30" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-6,30"
+                    Point2="-10,30"
+                    Point3="-10,34" />
+                  <mssgle:LineSegment
+                    End="-10,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Insertion et Mise à jour des lignes de la dimension\Destination d'insertion">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Insertion et Mise à jour des lignes de la dimension\Dimension à variation lente">
+    <Properties>
+      <Property>
+        <Name>SCDMetadata</Name>
+        <Value
+          type="q2:string">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SCDWizardMetadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionID&gt;{6491E4CC-4E35-471F-B139-A948317EC7AD}&lt;/ConnectionID&gt;
+  &lt;TableName&gt;[dbo].[PRODUIT]&lt;/TableName&gt;
+  &lt;InputToColumnsCollection&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Source OLE DB.Sorties[Sortie de source OLE DB].Colonnes[idcategorie]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;idcategorie&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Source OLE DB.Sorties[Sortie de source OLE DB].Colonnes[idproduit]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;idproduit&lt;/ColumnName&gt;
+      &lt;KeyType&gt;BusinessKey&lt;/KeyType&gt;
+      &lt;ChangeType&gt;None&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Source OLE DB.Sorties[Sortie de source OLE DB].Colonnes[libelle_produit]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;libelle_produit&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Source OLE DB.Sorties[Sortie de source OLE DB].Colonnes[prix_unitaire]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;prix_unitaire&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;HistoricalAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Source OLE DB.Sorties[Sortie de source OLE DB].Colonnes[Qte_stock]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;Qte_stock&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+  &lt;/InputToColumnsCollection&gt;
+  &lt;GeneratedComponentsIdentificationStrings&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Colonne dérivée&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Commande OLE DB&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Unir tout&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Colonne dérivée 1&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Destination d'insertion&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Commande OLE DB 1&lt;/anyType&gt;
+  &lt;/GeneratedComponentsIdentificationStrings&gt;
+  &lt;FailFixedAttribute&gt;false&lt;/FailFixedAttribute&gt;
+  &lt;FailChangeAttribute&gt;true&lt;/FailChangeAttribute&gt;
+  &lt;UseStartEndDate&gt;true&lt;/UseStartEndDate&gt;
+  &lt;CurrentIndicatorColumn /&gt;
+  &lt;InferredIndicatorColumn /&gt;
+  &lt;ValueCurrent /&gt;
+  &lt;ValueExpired /&gt;
+  &lt;StartDateColumn&gt;date_insert&lt;/StartDateColumn&gt;
+  &lt;EndDateColumn&gt;date_update&lt;/EndDateColumn&gt;
+  &lt;DateVariable&gt;System::StartTime&lt;/DateVariable&gt;
+  &lt;EnableInferredSupport&gt;false&lt;/EnableInferredSupport&gt;
+&lt;/SCDWizardMetadata&gt;</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Insertion et Mise à jour des lignes de la dimension\Source OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
